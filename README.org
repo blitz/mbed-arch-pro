@@ -2,9 +2,11 @@
 
 ** Codesourcery Toolchain
 
-   git clone git@github.com:jsnyder/arm-eabi-toolchain.git
-   cd arm-eabi-toolchain
-   make install-cross
+#+BEGIN_SRC
+git clone git@github.com:jsnyder/arm-eabi-toolchain.git
+cd arm-eabi-toolchain
+make install-cross
+#+END_SRC
 
 Add binaries to PATH.
 
@@ -12,13 +14,15 @@ Add binaries to PATH.
 
 Download and build the mbed SDK:
 
-    git clone git@github.com:mbedmicro/mbed.git
-    cd mbed
-    echo "from mbed_settings import *"                >  mbed_settings.py
-    echo "GCC_CS_PATH = \"${HOME}/arm-cs-tools/bin\"" >> mbed_settings.py
+#+BEGIN_SRC
+git clone git@github.com:mbedmicro/mbed.git
+cd mbed
+echo "from mbed_settings import *"                >  mbed_settings.py
+echo "GCC_CS_PATH = \"${HOME}/arm-cs-tools/bin\"" >> mbed_settings.py
 
-    python setup.py build
-    python workspace_tools/build.py -j 0 -t GCC_CS -m ARCH_PRO -r
+python setup.py build
+python workspace_tools/build.py -j 0 -t GCC_CS -m ARCH_PRO -r
+#+END_SRC
 
 
 
