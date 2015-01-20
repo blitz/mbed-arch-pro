@@ -1,5 +1,5 @@
 PROJECT   = mbed_arch_pro
-OBJECTS   = ./main.o
+OBJECTS   = ./main.o ./i2c.o ./font8x8.o
 TOOLCHAIN = GCC_CS
 SDK       = $(HOME)/src/mbed/build
 SYS_OBJECTS = $(SDK)/mbed/TARGET_ARCH_PRO/TOOLCHAIN_$(TOOLCHAIN)/*.o
@@ -13,7 +13,7 @@ CC = arm-none-eabi-gcc
 CPP = arm-none-eabi-g++
 OBJCOPY = arm-none-eabi-objcopy
 
-CC_FLAGS = -c -g -fno-common -fmessage-length=0 -Wall -fno-exceptions -fno-rtti -mcpu=cortex-m3 -mthumb -ffunction-sections -fdata-sections -fomit-frame-pointer
+CC_FLAGS = -MMD -c -g -fno-common -fmessage-length=0 -Wall -fno-exceptions -fno-rtti -mcpu=cortex-m3 -mthumb -ffunction-sections -fdata-sections -fomit-frame-pointer
 ONLY_C_FLAGS = -std=gnu99
 ONLY_CPP_FLAGS = -std=gnu++11
 
@@ -48,3 +48,5 @@ $(PROJECT).elf: $(OBJECTS) $(SYS_OBJECTS)
 
 $(PROJECT).bin: $(PROJECT).elf
 	$(OBJCOPY) -O binary $< $@
+
+-include *.d
