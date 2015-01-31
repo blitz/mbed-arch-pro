@@ -23,21 +23,24 @@ int main()
 
     pc.printf("Hello!\n");
 
-    if (i2c_exists(i2c0, Compass::address)) {
-        pc.printf("Compass is attached.\n");
-
-        static Compass compass { i2c0 };
-
-        for (int i = 0; i < 10; i++) {
-            wait(0.2);
-            pc.printf("Bearing %.0f\n", rad_to_deg(compass.bearing()));
-        }
-    }
-
     if (i2c_exists(i2c0, OLED::address)) {
         pc.printf("OLED found.\n");
 
         static OLED oled { i2c0 };
+
+        if (i2c_exists(i2c0, Compass::address)) {
+            pc.printf("Compass is attached.\n");
+
+            static Compass compass { i2c0 };
+
+            while (true) {
+                wait(0.2);
+                char buf[32]; buf[31] = 0;
+                snprintf(buf, sizeof(buf) - 1, "%+04d deg", int(rad_to_deg(compass.bearing())));
+
+                oled.puts(0, 0, buf);
+            }
+        }
     }
 
     pc.printf("Done!\n");
